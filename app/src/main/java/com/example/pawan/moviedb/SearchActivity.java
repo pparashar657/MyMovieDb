@@ -34,6 +34,7 @@ public class SearchActivity extends AppCompatActivity {
         query = getIntent().getStringExtra("query");
         progressBar = (ProgressBar)findViewById(R.id.searchprogress);
         recyclerView = (RecyclerView) findViewById(R.id.searchlist);
+        setTitle(query);
         fetchSearch();
 
     }

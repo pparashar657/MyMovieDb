@@ -78,6 +78,11 @@ public class HomeActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        moviesFragment = new MoviesFragment();
+        bundle.putString("type",Constants.movie_popular);
+        moviesFragment.setArguments(bundle);
+        setTitle("Movies");
+        setFragment(moviesFragment);
     }
 
     private void setFragment(Fragment fragment) {
