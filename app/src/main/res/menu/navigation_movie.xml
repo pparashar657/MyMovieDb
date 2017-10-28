@@ -15,4 +15,9 @@
         android:icon="@drawable/ic_notifications_black_24dp"
         android:title="@string/title_nowshowing" />
 
+    <item
+        android:id="@+id/navigation_toprated"
+        android:icon="@drawable/ic_notifications_black_24dp"
+        android:title="@string/title_toprated" />
+
 </menu>

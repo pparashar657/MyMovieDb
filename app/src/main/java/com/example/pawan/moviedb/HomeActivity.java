@@ -1,14 +1,13 @@
 package com.example.pawan.moviedb;
 
+import android.app.SearchManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -17,11 +16,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.support.v7.widget.SearchView;
 import android.widget.Toast;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    MoviesFragment moviesFragment;
+    Bundle bundle= new Bundle();
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -30,13 +32,28 @@ public class HomeActivity extends AppCompatActivity
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_popular:
-                    setFragment(new PopularMoviesFragment());
+                    moviesFragment = new MoviesFragment();
+                    bundle.putString("type",Constants.movie_popular);
+                    moviesFragment.setArguments(bundle);
+                    setFragment(moviesFragment);
                     return true;
                 case R.id.navigation_upcoming:
-                    Toast.makeText(HomeActivity.this, "upcoming", Toast.LENGTH_SHORT).show();
+                    moviesFragment = new MoviesFragment();
+                    bundle.putString("type",Constants.movie_upcoming);
+                    moviesFragment.setArguments(bundle);
+                    setFragment(moviesFragment);
                     return true;
                 case R.id.navigation_nowshowing:
-                    Toast.makeText(HomeActivity.this, "nowshowing", Toast.LENGTH_SHORT).show();
+                    moviesFragment = new MoviesFragment();
+                    bundle.putString("type",Constants.movie_nowshowing);
+                    moviesFragment.setArguments(bundle);
+                    setFragment(moviesFragment);
+                    return true;
+                case R.id.navigation_toprated:
+                    moviesFragment = new MoviesFragment();
+                    bundle.putString("type",Constants.movie_toprated);
+                    moviesFragment.setArguments(bundle);
+                    setFragment(moviesFragment);
                     return true;
             }
             return false;
@@ -85,6 +102,29 @@ public class HomeActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.home, menu);
+
+        SearchManager searchManager =
+                (SearchManager) getSystemService(this.SEARCH_SERVICE);
+        SearchView searchView =
+                (SearchView) menu.findItem(R.id.search).getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Intent intent = new Intent(HomeActivity.this,SearchActivity.class);
+                intent.putExtra("query",query);
+                startActivityForResult(intent,1);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return true;
+            }
+        });
+
+        searchView.setSearchableInfo(
+                searchManager.getSearchableInfo(getComponentName()));
+
         return true;
     }
 
@@ -96,7 +136,7 @@ public class HomeActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.search) {
             return true;
         }
 

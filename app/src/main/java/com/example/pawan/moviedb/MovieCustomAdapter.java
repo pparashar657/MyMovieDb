@@ -14,13 +14,13 @@ import com.squareup.picasso.Picasso;
  * Created by Pawan on 26-10-2017.
  */
 
-public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ExpenseHolder> {
+public class MovieCustomAdapter extends RecyclerView.Adapter<MovieCustomAdapter.ExpenseHolder> {
 
     Movies.Movie mMovie[];
     Context mContext;
     ClickListener mListener;
 
-    public CustomAdapter(Movies.Movie mMovie[], Context mContext, ClickListener mListener) {
+    public MovieCustomAdapter(Movies.Movie mMovie[], Context mContext, ClickListener mListener) {
         this.mMovie = mMovie;
         this.mContext = mContext;
         this.mListener = mListener;
@@ -28,7 +28,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ExpenseHol
 
     @Override
     public ExpenseHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(mContext).inflate(R.layout.row_layout,parent,false);
+        View view= LayoutInflater.from(mContext).inflate(R.layout.movie_row_layout,parent,false);
         return new ExpenseHolder(view,mListener);
 
     }
@@ -37,8 +37,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ExpenseHol
     public void onBindViewHolder(ExpenseHolder holder, int position) {
         Movies.Movie m=mMovie[position];
         holder.title.setText(m.getTitle());
-        holder.desc.setText(m.getOverview());
-        Picasso.with(mContext).load("http://image.tmdb.org/t/p/w342/"+m.getPoster_path()).resize(2000,900).centerInside().into(holder.imageView);
+        Picasso.with(mContext).load("http://image.tmdb.org/t/p/w342/"+m.getPoster_path()).resize(2000,700).centerInside().placeholder(R.drawable.loadingimage).into(holder.imageView);
     }
 
     @Override
@@ -48,7 +47,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ExpenseHol
 
     public static class ExpenseHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView title;
-        TextView desc;
         ImageView imageView;
         View itemView;
         ClickListener listener;
@@ -58,7 +56,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ExpenseHol
             this.itemView=itemView;
             this.listener=listener;
             title=(TextView)itemView.findViewById(R.id.title);
-            desc=(TextView)itemView.findViewById(R.id.desc);
             imageView=(ImageView)itemView.findViewById(R.id.image);
             itemView.setOnClickListener(this);
         }
