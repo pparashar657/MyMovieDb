@@ -10,20 +10,20 @@ import retrofit2.http.Query;
  */
 
 public interface Tmdbservice {
-    @GET("movie/popular?api_key=641d26b846df1adc97db0f44718ee254")
-    Call<Movies> getPopular();
+    @GET("movie/popular?api_key=641d26b846df1adc97db0f44718ee254&language=en-US&page")
+    Call<Movies> getPopular(@Query("page") int page );
 
-    @GET("movie/upcoming?api_key=641d26b846df1adc97db0f44718ee254&language=en-US&page=2")
-    Call<Movies> getUpcoming();
+    @GET("movie/upcoming?api_key=641d26b846df1adc97db0f44718ee254&language=en-US&page")
+    Call<Movies> getUpcoming(@Query("page") int page);
 
-    @GET("movie/now_playing?api_key=641d26b846df1adc97db0f44718ee254&language=en-US&page=1")
-    Call<Movies> getnowshowing();
+    @GET("movie/now_playing?api_key=641d26b846df1adc97db0f44718ee254&language=en-US&page")
+    Call<Movies> getnowshowing(@Query("page")int page);
 
-    @GET("movie/top_rated?api_key=641d26b846df1adc97db0f44718ee254&language=en-US&page=1")
-    Call<Movies> gettoprated();
+    @GET("movie/top_rated?api_key=641d26b846df1adc97db0f44718ee254&language=en-US&page")
+    Call<Movies> gettoprated(@Query("page") int page);
 
-    @GET("search/multi?api_key=641d26b846df1adc97db0f44718ee254&language=en-US&page=1&include_adult=false&query")
-    Call<Movies> getsearch(@Query("query") String query);
+    @GET("search/multi?api_key=641d26b846df1adc97db0f44718ee254&language=en-US&page&include_adult=false&query")
+    Call<Movies> getsearch(@Query("page") int page,@Query("query") String query);
 
 
 }

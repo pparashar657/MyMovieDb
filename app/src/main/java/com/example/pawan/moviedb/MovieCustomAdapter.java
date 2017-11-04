@@ -10,17 +10,19 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+
 /**
  * Created by Pawan on 26-10-2017.
  */
 
 public class MovieCustomAdapter extends RecyclerView.Adapter<MovieCustomAdapter.ExpenseHolder> {
 
-    Movies.Movie mMovie[];
+    ArrayList<Movies.Movie> mMovie;
     Context mContext;
     ClickListener mListener;
 
-    public MovieCustomAdapter(Movies.Movie mMovie[], Context mContext, ClickListener mListener) {
+    public MovieCustomAdapter(ArrayList<Movies.Movie> mMovie, Context mContext, ClickListener mListener) {
         this.mMovie = mMovie;
         this.mContext = mContext;
         this.mListener = mListener;
@@ -35,14 +37,15 @@ public class MovieCustomAdapter extends RecyclerView.Adapter<MovieCustomAdapter.
 
     @Override
     public void onBindViewHolder(ExpenseHolder holder, int position) {
-        Movies.Movie m=mMovie[position];
+        Movies.Movie m=mMovie.get(position);
         holder.title.setText(m.getTitle());
+        MoviesFragment.temp++;
         Picasso.with(mContext).load("http://image.tmdb.org/t/p/w342/"+m.getPoster_path()).resize(2000,700).centerInside().placeholder(R.drawable.loadingimage).into(holder.imageView);
     }
 
     @Override
     public int getItemCount() {
-        return mMovie.length;
+        return mMovie.size();
     }
 
     public static class ExpenseHolder extends RecyclerView.ViewHolder implements View.OnClickListener{

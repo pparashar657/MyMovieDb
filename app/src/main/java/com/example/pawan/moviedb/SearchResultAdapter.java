@@ -16,6 +16,7 @@ import com.squareup.picasso.Picasso;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -27,9 +28,9 @@ import java.util.List;
 public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapter.ResultViewHolder>{
 
     private Context mContext;
-    private Movies.Movie mSearchResults[];
+    private ArrayList<Movies.Movie> mSearchResults;
 
-    public SearchResultAdapter(Context mContext, Movies.Movie mSearchResults[]) {
+    public SearchResultAdapter(Context mContext, ArrayList<Movies.Movie> mSearchResults) {
         this.mContext = mContext;
         this.mSearchResults = mSearchResults;
     }
@@ -41,38 +42,37 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
 
     @Override
     public void onBindViewHolder(final ResultViewHolder holder, int position) {
-        if (mSearchResults[position].getName() != null )
+        if (mSearchResults.get(position).getName() != null )
         {
-            Log.i("string","setname :"+mSearchResults[position].getName());
-            holder.nameTextView.setText(mSearchResults[position].getName());}
+            holder.nameTextView.setText(mSearchResults.get(position).getName());}
         else {
             holder.nameTextView.setText("");
         }
-        if (mSearchResults[position].getMedia_type() != null && mSearchResults[position].getMedia_type().equals("movie"))
+        if (mSearchResults.get(position).getMedia_type() != null && mSearchResults.get(position).getMedia_type().equals("movie"))
         { Log.i("string","movie");
             holder.mediaTypeTextView.setText("Movie");
-            holder.nameTextView.setText(mSearchResults[position].getTitle());
+            holder.nameTextView.setText(mSearchResults.get(position).getTitle());
         }
-        else if (mSearchResults[position].getMedia_type() != null && mSearchResults[position].getMedia_type().equals("tv"))
+        else if (mSearchResults.get(position).getMedia_type() != null && mSearchResults.get(position).getMedia_type().equals("tv"))
         {   Log.i("string","tv show");
             holder.mediaTypeTextView.setText("TV Show");}
-        else if (mSearchResults[position].getMedia_type() != null && mSearchResults[position].getMedia_type().equals("person"))
+        else if (mSearchResults.get(position).getMedia_type() != null && mSearchResults.get(position).getMedia_type().equals("person"))
         {   Log.i("string","Person");
             holder.mediaTypeTextView.setText("Person");}
         else
             holder.mediaTypeTextView.setText("");
 
-        if (mSearchResults[position].getOverview() != null && !mSearchResults[position].getOverview().trim().isEmpty())
+        if (mSearchResults.get(position).getOverview() != null && !mSearchResults.get(position).getOverview().trim().isEmpty())
         {Log.i("string","overview");
-            holder.overviewTextView.setText(mSearchResults[position].getOverview());}
+            holder.overviewTextView.setText(mSearchResults.get(position).getOverview());}
         else
             holder.overviewTextView.setText("");
 
-        if (mSearchResults[position].getRelease_date() != null && !mSearchResults[position].getRelease_date().trim().isEmpty()) {
+        if (mSearchResults.get(position).getRelease_date() != null && !mSearchResults.get(position).getRelease_date().trim().isEmpty()) {
             SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
             SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy");
             try {
-                Date releaseDate = sdf1.parse(mSearchResults[position].getRelease_date());
+                Date releaseDate = sdf1.parse(mSearchResults.get(position).getRelease_date());
                 holder.yearTextView.setText(sdf2.format(releaseDate));
             } catch (ParseException e) {
                 e.printStackTrace();
@@ -80,12 +80,12 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
         } else {
             holder.yearTextView.setText("");
         }
-        Picasso.with(mContext).load("http://image.tmdb.org/t/p/w342/" + mSearchResults[position].getPoster_path()).placeholder(R.drawable.loadingimage).error(mContext.getResources().getDrawable(R.drawable.image_not_found)).into(holder.posterImageView);
+        Picasso.with(mContext).load("http://image.tmdb.org/t/p/w342/" + mSearchResults.get(position).getPoster_path()).placeholder(R.drawable.loadingimage).error(mContext.getResources().getDrawable(R.drawable.image_not_found)).into(holder.posterImageView);
     }
 
     @Override
     public int getItemCount() {
-        return mSearchResults.length;
+        return mSearchResults.size();
     }
 
     public class ResultViewHolder extends RecyclerView.ViewHolder {
@@ -112,7 +112,7 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(mContext, mSearchResults[getAdapterPosition()].getTitle(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, mSearchResults.get(getAdapterPosition()).getTitle(), Toast.LENGTH_SHORT).show();
                 }
             });
 

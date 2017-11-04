@@ -12,6 +12,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ProgressBar;
 
+import java.util.ArrayList;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -22,8 +24,9 @@ public class SearchActivity extends AppCompatActivity {
 
     ProgressBar progressBar;
     RecyclerView recyclerView;
-    Movies.Movie[] movie;
+    ArrayList<Movies.Movie> movie;
     String query;
+    int page;
     SearchResultAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +38,7 @@ public class SearchActivity extends AppCompatActivity {
         progressBar = (ProgressBar)findViewById(R.id.searchprogress);
         recyclerView = (RecyclerView) findViewById(R.id.searchlist);
         setTitle(query);
+        page =1;
         fetchSearch();
 
     }
@@ -46,7 +50,7 @@ public class SearchActivity extends AppCompatActivity {
         Retrofit retrofit = new Retrofit.Builder().baseUrl("http://api.themoviedb.org/3/").addConverterFactory(GsonConverterFactory.create()).build();
         Tmdbservice tmdbservice = retrofit.create(Tmdbservice.class);
         Call<Movies> call = null;
-        call = tmdbservice.getsearch(query);
+        call = tmdbservice.getsearch(page,query);
         call.enqueue(new Callback<Movies>() {
             @Override
             public void onResponse(Call<Movies> call, Response<Movies> response) {

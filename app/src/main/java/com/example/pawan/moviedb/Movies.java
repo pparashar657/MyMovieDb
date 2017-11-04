@@ -1,14 +1,16 @@
 package com.example.pawan.moviedb;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 
 /**
  * Created by Pawan on 26-10-2017.
  */
 
-public class Movies {
+public class Movies  {
 
-    private Movie results[]=new Movie[20];
+    private ArrayList<Movie> results;
 
     public class Movie {
         int id;
@@ -112,11 +114,11 @@ public class Movies {
 
            }
 
-    public Movie[] getResults() {
+    public ArrayList<Movie> getResults() {
         return results;
     }
 
-    public void setResults(Movie[] results) {
+    public void setResults(ArrayList<Movie> results) {
         this.results = results;
     }
 }

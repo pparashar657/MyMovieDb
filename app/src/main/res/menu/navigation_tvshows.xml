@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+        <item
+            android:id="@+id/navigation_airingtoday"
+            android:icon="@drawable/ic_airplay_black_24dp"
+            android:title="Airing Today" />
+
+        <item
+            android:id="@+id/navigation_ongoing"
+            android:icon="@drawable/ic_live_tv_black_24dp"
+            android:title="On Going" />
+
+        <item
+            android:id="@+id/navigation_populartv"
+            android:icon="@drawable/nowshowing"
+            android:title="@string/title_popular" />
+
+        <item
+            android:id="@+id/navigation_toprated"
+            android:icon="@drawable/ic_important_devices_black_24dp"
+            android:title="@string/title_toprated" />
+
+</menu>

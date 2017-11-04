@@ -19,11 +19,22 @@
 
 
     <android.support.design.widget.BottomNavigationView
-        android:id="@+id/navigation"
+        android:id="@+id/navigation_movies"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:background="?android:attr/windowBackground"
         app:menu="@menu/navigation_movie" />
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/navigation_tvshows"
+        android:layout_width="match_parent"
+        android:layout_gravity="bottom"
+        android:visibility="gone"
+        android:background="?android:attr/windowBackground"
+        app:menu="@menu/navigation_tvshows"
+        android:layout_height="wrap_content">
+
+    </android.support.design.widget.BottomNavigationView>
 
 </LinearLayout>
